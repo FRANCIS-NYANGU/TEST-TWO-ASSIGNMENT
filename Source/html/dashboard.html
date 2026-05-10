@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>IoT Dashboard</title>
+
+  <style>
+
+    body{
+      font-family: Arial;
+      padding: 20px;
+    }
+
+    .box{
+      border: 1px solid black;
+      padding: 15px;
+      margin-bottom: 15px;
+      width: 250px;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <h1>IoT Telemetry Dashboard</h1>
+
+  <div class="box">
+
+    <h3>Temperature Sensor</h3>
+
+    <p id="temp">Loading...</p>
+
+  </div>
+
+  <div class="box">
+
+    <h3>Humidity Sensor</h3>
+
+    <p id="humidity">Loading...</p>
+
+  </div>
+
+  <div class="box">
+
+    <h3>Soil Moisture Sensor</h3>
+
+    <p id="soil">Loading...</p>
+
+  </div>
+
+  <script>
+
+    async function loadData(){
+
+      try{
+
+        let tempResponse =
+          await fetch("http://localhost:8080/sensors/temp-1/readings");
+
+        let tempData = await tempResponse.json();
+
+        let latestTemp =
+          tempData.readings[tempData.readings.length - 1];
+
+        document.getElementById("temp").innerText =
+          latestTemp.value + " °C";
+
+
+
+        let humidityResponse =
+          await fetch("http://localhost:8080/sensors/humid-1/readings");
+
+        let humidityData = await humidityResponse.json();
+
+        let latestHumidity =
+          humidityData.readings[humidityData.readings.length - 1];
+
+        document.getElementById("humidity").innerText =
+          latestHumidity.value + " %";
+
+
+
+        let soilResponse =
+          await fetch("http://localhost:8080/sensors/soil-1/readings");
+
+        let soilData = await soilResponse.json();
+
+        let latestSoil =
+          soilData.readings[soilData.readings.length - 1];
+
+        document.getElementById("soil").innerText =
+          latestSoil.value + " %";
+
+      }
+
+      catch(error){
+
+        console.log(error);
+
+      }
+
+    }
+
+    loadData();
+
+    setInterval(loadData, 2000);
+
+  </script>
+
+</body>
+
+</html>

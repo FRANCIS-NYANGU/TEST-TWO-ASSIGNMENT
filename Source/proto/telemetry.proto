@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package telemetry;
+
+// Sensor reading sent from client -> server
+message Reading {
+  string sensor_id = 1;
+  string reading_type = 2;   // temp, humidity, soil_moisture, light
+  double value = 3;
+  string unit = 4;           // Celsius, %, lux, etc.
+  int64 timestamp = 5;       // Unix epoch seconds
+}
+
+// Sent when a sensor first connects
+message SensorRegistration {
+  string sensor_id = 1;
+  string sensor_type = 2;
+  string location = 3;
+  int32 reporting_interval = 4;
+}
