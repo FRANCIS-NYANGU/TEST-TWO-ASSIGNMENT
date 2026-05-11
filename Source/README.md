@@ -57,4 +57,5 @@ Sessions are tracked via cookies — set on first response, returned by the clie
 Connect to `ws://<host>:<port>/live`. Send a JSON subscription message after the upgrade to filter on specific sensor IDs. Frames on this channel are JSON.
 
 ## Authors
- trinity kambanje
+ trinity kambanje, bsc-com-ne-25-23 
+ Francis Nyangu, bsc-com-ne-13-21
